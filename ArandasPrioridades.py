@@ -50,7 +50,7 @@ def formulario():
 
         return redirect(url_for("listar"))
 
-    return render_template("formulario.html")
+    return render_template("Formulario.html")
 
 
 @app.route("/Lista")
