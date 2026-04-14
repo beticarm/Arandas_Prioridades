@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Casos Registrados</title>
+</head>
+
+<body>
+
+    <h2>Listado de Casos</h2>
+
+    <a href="/">Nuevo caso</a><br><br>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Analista</th>
+            <th>Sistema</th>
+            <th>N° Caso</th>
+            <th>Prioridad</th>
+            <th>Defino 30/09</th>
+            <th>Atendido</th>
+        </tr>
+
+        {% for c in registros %}
+        <tr>
+            <td>{{ c[0] }}</td>
+            <td>{{ c[1] }}</td>
+            <td>{{ c[2] }}</td>
+            <td>{{ c[3] }}</td>
+            <td>{{ c[4] }}</td>
+            <td>{{ c[6] }}</td>
+            <td>{{ c[7] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+
+</html>

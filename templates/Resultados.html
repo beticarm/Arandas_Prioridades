@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado</title>
+</head>
+
+<body>
+    <h2>Datos ingresados</h2>
+
+    <ul>
+        {% for clave, valor in datos.items() %}
+        <li><strong>{{ clave }}:</strong> {{ valor }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Volver</a>
+</body>
+
+</html>
