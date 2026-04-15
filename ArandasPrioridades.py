@@ -152,7 +152,7 @@ def editar(id):
     conn.close()
 
     return render_template("editar.html", caso=caso)
-    @app.route("/eliminar/<int:id>")
+@app.route("/eliminar/<int:id>")
 def eliminar(id):
     conn = conectar_db()
     cursor = conn.cursor()
