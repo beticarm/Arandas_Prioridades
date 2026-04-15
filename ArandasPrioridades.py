@@ -11,29 +11,32 @@ def crear_tabla():
     conn = conectar_db()
     cursor = conn.cursor()
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS casos (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            analista TEXT,
-            sistema TEXT,
-            numero_caso TEXT,
-            prioridad INTEGER,
-            observaciones TEXT,
-            defino_3009 TEXT,
-            atendido_fecha TEXT
-        )
+    CREATE TABLE IF NOT EXISTS casos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        analista TEXT,
+        sistema TEXT,
+        numero_caso TEXT,
+        prioridad INTEGER,
+        observaciones TEXT,
+        defino_3009 TEXT,
+        atendido_fecha TEXT
+    )
     """)
     conn.commit()
     conn.close()
 
 crear_tabla()
 
-# =======================
-# FORMULARIO
-# =======================
 @app.route("/", methods=["GET", "POST"])
 def formulario():
     if request.method == "POST":
-        datos = (
+        conn = conectar_db()
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO casos 
+            (analista, sistema, numero_caso, prioridad, observaciones, defino_3009, atendido_fecha)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (
             request.form["analista"],
             request.form["sistema"],
             request.form["numero_caso"],
@@ -41,25 +44,13 @@ def formulario():
             request.form["observaciones"],
             request.form["defino_3009"],
             request.form["atendido_fecha"]
-        )
-
-        conn = conectar_db()
-        cursor = conn.cursor()
-        cursor.execute("""
-            INSERT INTO casos
-            (analista, sistema, numero_caso, prioridad, observaciones, defino_3009, atendido_fecha)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        """, datos)
+        ))
         conn.commit()
         conn.close()
-
         return redirect(url_for("listar"))
 
     return render_template("formulario.html")
 
-# =======================
-# LISTA DE CASOS
-# =======================
 @app.route("/lista")
 def listar():
     conn = conectar_db()
@@ -69,9 +60,6 @@ def listar():
     conn.close()
     return render_template("lista.html", registros=casos)
 
-# =======================
-# RESULTADOS (DETALLE)
-# =======================
 @app.route("/resultados/<int:id>")
 def resultados(id):
     conn = conectar_db()
@@ -82,4 +70,4 @@ def resultados(id):
     return render_template("resultados.html", caso=caso)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
