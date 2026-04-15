@@ -30,24 +30,36 @@ crear_tabla()
 @app.route("/", methods=["GET", "POST"])
 def formulario():
     if request.method == "POST":
-        conn = conectar_db()
-        cursor = conn.cursor()
-        cursor.execute("""
-            INSERT INTO casos 
-            (analista, sistema, numero_caso, prioridad, observaciones, defino_3009, atendido_fecha)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        """, (
-            request.form["analista"],
-            request.form["sistema"],
-            request.form["numero_caso"],
-            int(request.form["prioridad"]),
-            request.form["observaciones"],
-            request.form["defino_3009"],
-            request.form["atendido_fecha"]
-        ))
-        conn.commit()
-        conn.close()
-        return redirect(url_for("listar"))
+        # 1. Obtener todos los campos del formulario
+        datos = request.form
+        
+        # 2. VALIDACIÓN: Verificar que ningún campo esté vacío
+        for campo, valor in datos.items():
+            if not valor or not str(valor).strip():
+                return f"Error: El campo '{campo}' es obligatorio.", 400
+
+        # 3. Guardar en la base de datos si la validación pasó
+        try:
+            conn = conectar_db()
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT INTO casos 
+                (analista, sistema, numero_caso, prioridad, observaciones, defino_3009, atendido_fecha)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, (
+                datos["analista"],
+                datos["sistema"],
+                datos["numero_caso"],
+                int(datos["prioridad"]),
+                datos["observaciones"],
+                datos["defino_3009"],
+                datos["atendido_fecha"]
+            ))
+            conn.commit()
+            conn.close()
+            return redirect(url_for("listar"))
+        except ValueError:
+            return "Error: La prioridad debe ser un número entero.", 400
 
     return render_template("formulario.html")
 
