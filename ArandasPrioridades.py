@@ -108,9 +108,8 @@ def exportar_csv():
 
     # Preparar respuesta para descarga
     response = Response(
-        output.getvalue(),
-        mimetype="text/csv"
-    )
+    output.getvalue().encode("utf-8-sig"),
+    mimetype="text/csv; charset=utf-8")
     response.headers["Content-Disposition"] = "attachment; filename=casos.csv"
 
     return response
