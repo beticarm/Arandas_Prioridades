@@ -37,7 +37,7 @@ def formulario():
             request.form["analista"],
             request.form["sistema"],
             request.form["numero_caso"],
-            request.form["prioridad"],
+            int(request.form["prioridad"]),
             request.form["observaciones"],
             request.form["defino_3009"],
             request.form["atendido_fecha"]
@@ -82,4 +82,4 @@ def resultados(id):
     return render_template("resultados.html", caso=caso)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True)

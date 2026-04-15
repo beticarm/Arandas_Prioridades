@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Casos</title>
+</head>
+
+<body>
+
+    <h2>Registrar Caso</h2>
+
+    <form method="POST">
+
+        <fieldset>
+            <legend>Información General</legend>
+
+            <label for="analista">Nombre del Analista:</label><br>
+            <input type="text" id="analista" name="analista" required maxlength="100"><br><br>
+
+            <label for="sistema">Nombre del Sistema:</label><br>
+            <select id="sistema" name="sistema" required>
+                <option value="">-- Seleccione --</option>
+                <option>MISCF</option>
+                <option>SCC</option>
+                <option>SEMS</option>
+                <option>SIAE</option>
+                <option>SIBI</option>
+                <option>SIC</option>
+                <option>SICA</option>
+                <option>SICO</option>
+                <option>SICOVE</option>
+                <option>SICS</option>
+                <option>SIF</option>
+                <option>SIF-APEX</option>
+                <option>SIGR</option>
+                <option>SIMAS</option>
+                <option>SIREHS</option>
+                <option>SIREMA</option>
+                <option>SIRH</option>
+                <option>SIRH-APEX</option>
+                <option>SICOI</option>
+                <option>SISER</option>
+                <option>SISO</option>
+                <option>SITH</option>
+                <option>SIVEN</option>
+                <option>SADU</option>
+                <option>ANE</option>
+                <option>INOCUIDAD</option>
+                <option>SATD</option>
+                <option>SBBD</option>
+                <option>SGJD</option>
+                <option>SGP</option>
+                <option>SIFA</option>
+                <option>SNE</option>
+                <option>SIGIL</option>
+                <option>SII</option>
+                <option>SIMAS_</option>
+                <option>SINAFOR</option>
+                <option>SIRIA</option>
+                <option>SIPG</option>
+                <option>SISAE</option>
+            </select>
+        </fieldset>
+
+        <br>
+
+        <fieldset>
+            <legend>Datos del Caso</legend>
+
+            <label for="numero_caso">Número de Caso:</label><br>
+            <input type="text" id="numero_caso" name="numero_caso" required maxlength="50"><br><br>
+
+            <label for="prioridad">Prioridad:</label><br>
+            <select id="prioridad" name="prioridad" required>
+                <option value="1">1 - Alta</option>
+                <option value="2">2 - Media</option>
+                <option value="3">3 - Baja</option>
+            </select><br><br>
+
+            <label for="observaciones">Observaciones:</label><br>
+            <textarea id="observaciones" name="observaciones" rows="4" cols="40" maxlength="500"></textarea>
+        </fieldset>
+
+        <br>
+
+        <fieldset>
+            <legend>Estado</legend>
+
+            <label>¿Definido al 30/09?</label><br>
+            <input type="radio" id="def_si" name="defino_3009" value="Sí" required>
+            <label for="def_si">Sí</label>
+
+            <input type="radio" id="def_no" name="defino_3009" value="No">
+            <label for="def_no">No</label><br><br>
+
+            <label>¿Atendido a la fecha?</label><br>
+            <input type="radio" id="aten_si" name="atendido_fecha" value="Sí" required>
+            <label for="aten_si">Sí</label>
+
+            <input type="radio" id="aten_no" name="atendido_fecha" value="No">
+            <label for="aten_no">No</label>
+        </fieldset>
+
+        <br>
+
+        <button type="submit">Guardar Caso</button>
+
+    </form>
+
+</body>
+
+</html>
