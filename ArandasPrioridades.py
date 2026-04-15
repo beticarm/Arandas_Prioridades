@@ -55,7 +55,7 @@ def formulario():
 
         return redirect(url_for("listar"))
 
-    return render_template("Formulario.html")
+    return render_template("formulario.html")
 
 # =======================
 # LISTA DE CASOS
@@ -67,7 +67,7 @@ def listar():
     cursor.execute("SELECT * FROM casos ORDER BY id DESC")
     casos = cursor.fetchall()
     conn.close()
-    return render_template("Lista.html", registros=casos)
+    return render_template("lista.html", registros=casos)
 
 # =======================
 # RESULTADOS (DETALLE)
@@ -79,7 +79,7 @@ def resultados(id):
     cursor.execute("SELECT * FROM casos WHERE id = ?", (id,))
     caso = cursor.fetchone()
     conn.close()
-    return render_template("Resultados.html", caso=caso)
+    return render_template("resultados.html", caso=caso)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
