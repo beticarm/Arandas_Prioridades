@@ -1,0 +1,26 @@
+<h2>Editar Caso</h2>
+
+<form method="post">
+    Analista:
+    <input type="text" name="analista" value="{{ caso[1] }}" required><br>
+
+    Sistema:
+    <input type="text" name="sistema" value="{{ caso[2] }}" required><br>
+
+    Número de caso:
+    <input type="text" name="numero_caso" value="{{ caso[3] }}" required><br>
+
+    Prioridad:
+    <input type="number" name="prioridad" value="{{ caso[4] }}" required><br>
+
+    Observaciones:
+    <textarea name="observaciones">{{ caso[5] }}</textarea><br>
+
+    Defino 30/09:
+    <input type="text" name="defino_3009" value="{{ caso[6] }}"><br>
+
+    Atendido:
+    <input type="text" name="atendido_fecha" value="{{ caso[7] }}"><br>
+
+    <button type="submit">Guardar cambios</button>
+</form>
