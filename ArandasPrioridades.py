@@ -113,6 +113,45 @@ def exportar_csv():
     response.headers["Content-Disposition"] = "attachment; filename=casos.csv"
 
     return response
+@app.route("/editar/<int:id>", methods=["GET", "POST"])
+def editar(id):
+    conn = conectar_db()
+    cursor = conn.cursor()
+
+    if request.method == "POST":
+        datos = request.form
+
+        cursor.execute("""
+            UPDATE casos
+            SET analista = ?,
+                sistema = ?,
+                numero_caso = ?,
+                prioridad = ?,
+                observaciones = ?,
+                defino_3009 = ?,
+                atendido_fecha = ?
+            WHERE id = ?
+        """, (
+            datos["analista"],
+            datos["sistema"],
+            datos["numero_caso"],
+            int(datos["prioridad"]),
+            datos["observaciones"],
+            datos["defino_3009"],
+            datos["atendido_fecha"],
+            id
+        ))
+
+        conn.commit()
+        conn.close()
+        return redirect(url_for("listar"))
+
+    # GET → cargar datos existentes
+    cursor.execute("SELECT * FROM casos WHERE id = ?", (id,))
+    caso = cursor.fetchone()
+    conn.close()
+
+    return render_template("editar.html", caso=caso)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
