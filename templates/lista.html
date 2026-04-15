@@ -26,7 +26,7 @@
             <th>Observaciones</th>
             <th>Defino 30/09</th>
             <th>Atendido</th>
-            <th>Acciones</th>
+            
         </tr>
 
         {% for c in registros %}
@@ -38,6 +38,8 @@
             <td>{{ c[4] }}</td>
             <td>{{ c[5] }}</td>
             <td>{{ c[6] }}</td>
+            <td>{{ c[7] }}</td>
+            <td>{{ c[8] }}</td>
             <td>
                 <!-- Ver -->
                 <a href="/resultados/{{ c[0] }}">Ver</a> |
