@@ -38,7 +38,7 @@ def formulario():
         
         # 2. VALIDACIÓN: Verificar que ningún campo esté vacío
         campos_esperados = ["analista", "sistema", "numero_caso", "prioridad", "observaciones", "defino_3009", "atendido_fecha"]
-        for campo, in campos_esperados:
+        for campo in campos_esperados:
             valor = request.form.get(campo) # .get() devuelve None si no existe, no explota
             if not valor or not str(valor).strip():
                 return f"Error: El campo '{campo}' es obligatorio.", 400
