@@ -1,6 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 import os
+import csv
+from io import StringIO
+from flask import Response
+
+
 # Esto detecta automáticamente dónde está tu archivo .py y busca la carpeta templates ahí mismo
 base_dir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__, template_folder=os.path.join(base_dir, 'templates'))
@@ -85,6 +90,30 @@ def resultados(id):
     caso = cursor.fetchone()
     conn.close()
     return render_template("resultados.html", caso=caso)
+
+@app.route("/exportar")
+def exportar_csv():
+    conn = conectar_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM casos ORDER BY id DESC")
+    registros = cursor.fetchall()
+    columnas = [description[0] for description in cursor.description]
+    conn.close()
+
+    # Crear CSV en memoria
+    output = StringIO()
+    writer = csv.writer(output)
+    writer.writerow(columnas)   # encabezados
+    writer.writerows(registros) # datos
+
+    # Preparar respuesta para descarga
+    response = Response(
+        output.getvalue(),
+        mimetype="text/csv"
+    )
+    response.headers["Content-Disposition"] = "attachment; filename=casos.csv"
+
+    return response
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
