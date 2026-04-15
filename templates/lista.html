@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>Listado de Casos</title>
@@ -10,6 +9,13 @@
 
     <h2>Casos Registrados</h2>
 
+    <!-- Botón de descarga -->
+    <p>
+        <a href="/exportar">
+            <button>Descargar registros</button>
+        </a>
+    </p>
+
     <table border="1">
         <tr>
             <th>ID</th>
@@ -17,8 +23,10 @@
             <th>Sistema</th>
             <th>N° Caso</th>
             <th>Prioridad</th>
+            <th>Observaciones</th>
             <th>Defino 30/09</th>
             <th>Atendido</th>
+            <th>Acciones</th>
         </tr>
 
         {% for c in registros %}
@@ -30,15 +38,27 @@
             <td>{{ c[4] }}</td>
             <td>{{ c[5] }}</td>
             <td>{{ c[6] }}</td>
-
             <td>
-                <a href="/resultados/{{ c[0] }}">Ver</a>
-                <a href="/exportar"><button>Descargar registros</button></a>
+                <!-- Ver -->
+                <a href="/resultados/{{ c[0] }}">Ver</a> |
+
+                <!-- Editar -->
+                <a href="/editar/{{ c[0] }}">Editar</a> |
+
+                <!-- Eliminar -->
+                <a href="/eliminar/{{ c[0] }}"
+                   onclick="return confirm('¿Está seguro de que desea eliminar este caso?');"
+                   title="Eliminar">
+                    🗑️
+                </a>
             </td>
         </tr>
         {% endfor %}
     </table>
-    <a href="/">Nuevo Caso</a>
-</body>
 
+    <p>
+        <a href="/">Nuevo Caso</a>
+    </p>
+
+</body>
 </html>
