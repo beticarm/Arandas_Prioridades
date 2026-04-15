@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
+import os
+# Esto detecta automáticamente dónde está tu archivo .py y busca la carpeta templates ahí mismo
+base_dir = os.path.abspath(os.path.dirname(__file__))
+app = Flask(__name__, template_folder=os.path.join(base_dir, 'templates'))
 
-app = Flask(__name__)
 DB_NAME = "casos.db"
 
 def conectar_db():
