@@ -3,14 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Casos Registrados</title>
+    <title>Listado de Casos</title>
 </head>
 
 <body>
 
-    <h2>Listado de Casos</h2>
-
-    <a href="/">Nuevo caso</a><br><br>
+    <h2>Casos Registrados</h2>
 
     <table border="1">
         <tr>
@@ -32,10 +30,14 @@
             <td>{{ c[4] }}</td>
             <td>{{ c[6] }}</td>
             <td>{{ c[7] }}</td>
+
+            <td>
+                <a href="/resultados/{{ c[0] }}">Ver</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
-
+    <a href="/">Nuevo Caso</a>
 </body>
 
 </html>

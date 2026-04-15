@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request,redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
+
 app = Flask(__name__)
 DB_NAME = "casos.db"
 
@@ -25,10 +26,13 @@ def crear_tabla():
     conn.close()
 
 crear_tabla()
+
+# =======================
+# FORMULARIO
+# =======================
 @app.route("/", methods=["GET", "POST"])
 def formulario():
     if request.method == "POST":
-        
         datos = (
             request.form["analista"],
             request.form["sistema"],
@@ -38,6 +42,7 @@ def formulario():
             request.form["defino_3009"],
             request.form["atendido_fecha"]
         )
+
         conn = conectar_db()
         cursor = conn.cursor()
         cursor.execute("""
@@ -50,16 +55,31 @@ def formulario():
 
         return redirect(url_for("listar"))
 
-    return render_template("Formulario.html")
+    return render_template("formulario.html")
 
-
-@app.route("/Lista")
+# =======================
+# LISTA DE CASOS
+# =======================
+@app.route("/lista")
 def listar():
     conn = conectar_db()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM casos ORDER BY id DESC")
     casos = cursor.fetchall()
     conn.close()
-    return render_template("Lista.html", registros=registros)
+    return render_template("Lista.html", registros=casos)
+
+# =======================
+# RESULTADOS (DETALLE)
+# =======================
+@app.route("/resultados/<int:id>")
+def resultados(id):
+    conn = conectar_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM casos WHERE id = ?", (id,))
+    caso = cursor.fetchone()
+    conn.close()
+    return render_template("Resultados.html", caso=caso)
+
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
