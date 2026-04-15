@@ -152,6 +152,14 @@ def editar(id):
     conn.close()
 
     return render_template("editar.html", caso=caso)
+    @app.route("/eliminar/<int:id>")
+def eliminar(id):
+    conn = conectar_db()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM casos WHERE id = ?", (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for("listar"))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
